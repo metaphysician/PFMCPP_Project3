@@ -54,59 +54,59 @@ Thing: Car Wash
  */
 
 /*
-Thing 1)
+Thing 1) Button Factory
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Number of workers
+    2) Number of buttons per month manufactured
+    3) Number of button types   
+    4) Average cost of button
+    5) Profit per quarter
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Manufacture buttons
+    2) Design buttons
+    3) Ship buttons to businesses
  */
 
 /*
-Thing 2)
+Thing 2) Alien detection agency
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) number of aliens on ground
+    2) fleet size
+    3) intelligence (IQ)
+    4) global coordinates detected from
+    5) case number
 3 things it can do:
-    1)
-    2)
-    3)
+    1) process reports by field agents
+    2) filter out false reports
+    3) publish vetted reports
  */
 
 /*
-Thing 3)
+Thing 3) Instrument
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Pitch frequency
+    2) Volume amount
+    3) Timbre value
+    4) Attack time
+    5) Decay time
 3 things it can do:
-    1)
-    2)
-    3)
+    1) Play a note
+    2) Bend Pitch
+    3) Adjust Timbre
  */
 
 /*
-Thing 4)
+Thing 4) Racecar
 5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
+    1) Dimensions of car (Length,Width,Height)
+    2) Weight of car
+    3) Engine cylinder count
+    4) Top speed in MPH/KPH
+    5) Max RPMs on engine
 3 things it can do:
-    1)
-    2)
-    3)
+    1) start and stop engine
+    2) accelerate speed
+    3) set current gear
  */
 
 
