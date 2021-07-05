@@ -70,76 +70,6 @@ Part1 will be broken up into 5 separate steps
 */
 
 /*
-Thing 5)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 6)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 7)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 8)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-/*
-Thing 9)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-
 
 
 /*
@@ -198,6 +128,74 @@ Thing 4) Racecar
     3) set current gear
  */
 
+/* Thing 5) Camera
+5 properties:
+    1) Focus amount
+    2) Exposure value
+    3) White balance 
+    4) Aspect ratio selection
+    5) Resolution (Width X Height)
+3 things it can do:
+    1) Enable/Disable image capture
+    2) Stream data for Tracking objects and hands
+    3) Adjust Exposure
+ */
+
+/*
+Thing 6) Board
+5 properties:
+    1) Height in cm
+    2) Width in cm
+    3) Active area (Tracked)
+    4) Inactive area (Non Tracked)
+    5) Location in virtual world space (X,Y,Z)
+3 things it can do:
+    1) Detect object on surface
+    2) Detect hand on surface
+    3) Reposition in world space
+ */
+
+/*
+Thing 7) Fiducial Marker
+5 properties:
+    1) Value
+    2) Position horizontal
+    3) Position Vertical
+    4) Rotation
+    5) Elevation
+3 things it can do:
+    1) send position
+    2) send value
+    3) send rotation
+ */
+
+/*
+Thing 8) Audio Engine
+5 properties:
+    1) Master Volume
+    2) Section
+    3) Active instrument count
+    4) Active Effect count
+    5) External Input volume
+3 things it can do:
+    1) produce audio from instruments
+    2) apply effects to instruments
+    3) record sounds 
+*/
+
+/*
+Thing 9) MIDI Interface
+5 properties:
+    1) MIDI Channel
+    2) MIDI note number
+    3) MIDI velocity
+    4) MIDI Controller Value
+    5) MIDI Pitch Bend
+3 things it can do:
+    1) route MIDI data to audio engine
+    2) record MIDI input
+    3) play back MIDI recording
+ */
 /*
 Thing 10) New Control Interface
 5 properties:
