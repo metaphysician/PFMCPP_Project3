@@ -55,23 +55,6 @@ Part1 will be broken up into 5 separate steps
 */
 
 /*
-Thing 10)
-5 properties:
-    1)
-    2)
-    3)
-    4)
-    5)
-3 things it can do:
-    1)
-    2)
-    3)
- */
-
-
-
-
-/*
 Thing 1) Button Factory
 5 properties:
     1) Number of workers
@@ -127,6 +110,19 @@ Thing 4) Racecar
     3) set current gear
  */
 
+/*
+Thing 10) New Control Interface
+5 properties:
+    1) Camera
+    2) Board
+    3) Fiducial Markers
+    4) Audio Engine
+    5) MIDI interface
+3 things it can do:
+    1) Detect position (horzontal and vertical) of hand or marker
+    2) Recognize different markers 
+    3) Send OSC messages
+ */
 
 
 /*
