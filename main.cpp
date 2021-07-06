@@ -41,12 +41,12 @@ Thing: Car Wash
         - detail the car interior
  */
 
-#if false //ignore these #if #endif lines. they're just here to prevent compiler errors.
-struct CarWash
-{
+//#if false //ignore these #if #endif lines. they're just here to prevent compiler errors.
+//struct CarWash
+//{
 
-};
-#endif
+//};
+//#endif
 /*
     - Do this for all 10 UDTs
 
@@ -94,7 +94,7 @@ Thing: Car Wash
 #include <iostream>
 #include <string>
 
-struct CarWash //                                   1) define an empty struct for each of your 10 types.       
+struct CarWash //                                   1) define an empty struct for each of your 10 types.      
 {
     //number of vacuum cleaners                     2) copied and commented-out plain-english property
     int numVacuumCleaners = 3; //                   3) member variables with relevant data types.
@@ -148,7 +148,26 @@ Thing 1) Button Factory
     2) Design buttons
     3) Ship buttons to businesses
  */
-
+struct ButtonFactory
+{
+ //   1) Number of workers
+    int numOfWorkers = 30;
+ //   2) Number of buttons per month manufactured
+    int numOfButtonsPerMo = 10500;
+ //   3) Number of button types
+    int numOfButtonTypes = 107;   
+ //   4) Average cost of button
+    float avgCostPerButton = 0.03f;
+ //   5) Profit per quarter
+    float profitPerQtr = 9450.00f;
+//3 things it can do:
+ //   1) Manufacture buttons
+    void makeButton(int buttonType);
+ //   2) Design buttons
+    void designButton();
+ //   3) Ship buttons to businesses
+    void shipButtons(std::string address, int buttonType, int numToShip);
+};
 /*
 Thing 2) Alien detection agency
 5 properties:
@@ -162,6 +181,55 @@ Thing 2) Alien detection agency
     2) filter out false reports
     3) publish vetted reports
  */
+
+struct AlienDetectionAgency //this is slightly revised from 1d
+{
+    //1) number of aliens on ground
+    int aliensOnGround = 731;
+    //2) fleet size
+    int alienFleetSize = 437;
+    //3) intelligence (IQ)
+    int avgAlienIntelligence = 130;
+    //4) Total Field Reports
+    unsigned int totalFieldReports = 1247;
+    //5) Total Field Agents
+    unsigned int totalFieldAgents = 12541;
+
+    struct FieldReport
+    {
+        //5) case number
+        unsigned int caseNumber = 1296;
+        //4) global coordinates detected from
+        struct Coordinate
+        {
+            double latitude = 0.0;
+            double longitude = 0.0;
+        };
+        Coordinate detectionCoord;
+        
+        std::string agentFirstName;
+        std::string agentLastName;
+        std::string eventDescription;
+        int numOfWitnesses;
+        bool verified = false;
+
+    };
+    //1) process reports by field agents
+    void ReportHandler(FieldReport currReport)
+    {
+        //2) filter out false reports
+        if(!currReport.verified)
+        {
+            //mark report as unverified
+        }
+        //3) publish vetted reports
+        else
+        {
+            //verified report
+            //publish report to site
+        }
+    }
+}; 
 
 /*
 Thing 3) Instrument
@@ -177,6 +245,27 @@ Thing 3) Instrument
     3) Adjust Timbre
  */
 
+struct Instrument
+{
+ //   1) Pitch frequency
+    double instPitchFrq = 1000;
+ //   2) Volume amount
+    float instVolume = 1.0f;
+ //   3) Timbre value
+    float instTimbre = 0.5f;
+ //   4) Attack time
+    int instAttack = 15;
+ //   5) Decay time
+    int instDecay = 2500;
+//3 things it can do:
+ //   1) Play a note
+    void playNote(double pitch, float volume, float timbre);
+ //   2) Bend Pitch
+    void sendPitchValue (double pitch);
+ //   3) Adjust Timbre
+    void changeTimbre (float timbre);
+};
+
 /*
 Thing 4) Racecar
 5 properties:
@@ -190,6 +279,40 @@ Thing 4) Racecar
     2) accelerate speed
     3) set current gear
  */
+struct Racecar
+{
+
+    //1) Dimensions of car (Length,Width,Height)
+    struct CarDimensions
+    {
+        double length = 6.25;
+        double width = 2.15;
+        double height = 1.15;
+    };
+    CarDimensions carDimensions;
+    //2) Weight of car
+    double carWeight = 800;
+    //3) Engine cylinder count
+    int engCylCount = 6;
+    //4) Top speed in MPH/KPH
+    unsigned int carTopSpeedMPH = 210;
+    // not sure if it's advisable to calculate within a struct, but i did have speed in MPH and KPH
+    double carTopSpeedKPH = carTopSpeedMPH * 1.609344;
+    //5) Max RPMs on engine
+    unsigned int engMaxRPM = 11300;
+    //1) start and stop engine
+    void engineStart();
+    //2) accelerate speed
+    void accelerate(unsigned int currSpeed, unsigned int topSpeed)
+    {
+        if(currSpeed < topSpeed)
+        {
+            currSpeed += 5;
+        }
+    }
+    //3) set current gear
+    int currGear();
+};
 
 /* Thing 5) Camera
 5 properties:
@@ -203,7 +326,29 @@ Thing 4) Racecar
     2) Stream data for Tracking objects and hands
     3) Adjust Exposure
  */
-
+ struct Camera
+ {
+    //1) Focus amount
+    float focusValue = 0.5f;
+    //2) Exposure value
+    float exposureValue = 1.3f;
+    //3) White balance 
+    float whiteBalanceValue = 0.8f;
+    //4) Aspect ratio selection
+    int aspectRatioNumber = 2;
+    //5) Resolution (Width X Height)
+    struct Resolution
+    {
+        int width = 1920;
+        int height = 1080;
+    };
+    Resolution resolution;
+    //1) Enable/Disable image capture
+    void capture(bool state);
+    //2) Stream data for Tracking objects and hands
+    void captureTrackData(std::string objName, int posX, int posY);
+    //3) Adjust Exposure
+ };
 /*
 Thing 6) Board
 5 properties:
@@ -217,6 +362,57 @@ Thing 6) Board
     2) Detect hand on surface
     3) Reposition in world space
  */
+ struct Board
+ {
+    //1) Height in cm
+    int height = 70;
+    //2) Width in cm
+    int width = 70;
+    //3) Active area (Tracked)
+    //4) Inactive area (Non Tracked) (Consolidating these two into one bool based on area)
+    bool activeArea(int horizontal, int vertical);
+    //5) Location in virtual world space (X,Y,Z)
+    struct World
+    {
+        int X;
+        int Y;
+        int Z;
+    };
+    World room;
+
+    //this throws an end of non-void function warning
+    //i would have just declared it but i wanted to
+    //do two actions in one function (hands and marker)
+    int detectObjectType(std::string object, int objHeight)
+    {
+        //1) Detect object on surface
+        if (objHeight <= 0.0f)
+        {
+            if(object == "marker")
+            {
+              return 1;
+            }
+            //2) Detect hand on surface
+            if(object == "Lhand")
+            {
+              return 2;
+            }
+            //2) Detect hand on surface
+            if(object == "Rhand")
+            {
+              return 3;
+            }
+            
+        }
+        else
+        {
+            return 0;
+        }  
+    }
+    //3) Reposition in world space
+    void newPosition(int x, int y, int z);
+ };
+
 
 /*
 Thing 7) Fiducial Marker
@@ -232,6 +428,29 @@ Thing 7) Fiducial Marker
     3) send rotation
  */
 
+struct FiducialMarker
+{
+    //1) Value (ID)
+    std::string markerID= "marker01";
+    //2) Position horizontal
+    int posX = 10;
+    //3) Position Vertical
+    int posY = 100;
+    //4) Rotation
+    int rotation = 0;
+    //5) Elevation
+    float elevation = 0.0f;
+
+    //1) send position
+    void sendMarkerPos(int X,int Y);
+    //2) send value
+    void sendMarkerID(std::string ID);
+    //3) send rotation
+    void sendMarkerRot(int rot);
+    //or really you just do all data in one call (avoids race condition)
+    void sendMarkerData(std::string ID, int X, int Y, float elev, int rot);
+};
+
 /*
 Thing 8) Audio Engine
 5 properties:
@@ -245,6 +464,26 @@ Thing 8) Audio Engine
     2) apply effects to instruments
     3) record sounds 
 */
+struct AudioEngine
+{
+    //1) Master Volume
+    float masterVol = 0.5f;
+    //2) Section
+    int Section = 3;
+    //3) Active instrument count
+    int activeInst = 4;
+    //4) Active Effect count
+    int activeEffects = 3;
+    //5) External Input volume
+    float extInputVol = 0.0f;
+    
+    //1) produce audio from instruments
+    void playAudio();
+    //2) apply effects to instruments
+    void applyEffect(int effect,int instNumber);
+    //3) record sounds
+    void recordSound(bool state);
+}; 
 
 /*
 Thing 9) MIDI Interface
@@ -259,9 +498,28 @@ Thing 9) MIDI Interface
     2) record MIDI input
     3) play back MIDI recording
  */
+struct MIDIinterface
+{
+    //1) MIDI Channel
+    int midiCh = 0;
+    //2) MIDI note number
+    int midiNote = 60;
+    //3) MIDI velocity
+    int midiVel = 80;
+    //4) MIDI Controller Value
+    int midiCtl = 7;
+    //5) MIDI Pitch Bend
+    double midiPitchBend = 134567;
+
+    //1) route MIDI data to audio engine
+    void routeMidi(int channel, int note, int vel);
+    //2) record MIDI input
+    void recordMidiIn(bool state);
+    //3) play back MIDI recording
+    void playMidiData(bool state);
+};
 /*
-Thing 10) New Control Interface
-5 properties:
+Thing 10) Control Interface
     1) Camera
     2) Board
     3) Fiducial Markers
@@ -272,8 +530,67 @@ Thing 10) New Control Interface
     2) Recognize different markers 
     3) Send OSC messages
  */
+struct ControlInterface
+{
+    //1) Camera
+    Camera camera;
+    //2) Board
+    Board board;
+    //3) Fiducial Markers
+    FiducialMarker marker;
+    //forgot to add hands so here they are
+    struct Hand
+    {
+      std::string name;
+      int posX;
+      int posY;
+      float elevation; 
+    };
+    Hand lHand;
+    Hand rHand;
+    //4) Audio Engine
+    AudioEngine audio;
+    //5) MIDI interface
+    MIDIinterface midi;
 
-
+    //1) Detect position (horzontal and vertical) of hand or marker
+    void getObjData(std::string objName)
+    {
+        int X = 0;
+        int Y = 0;
+        float elev = 0.0f;
+        //normally would do switch/case but keeping to the knowledgebase
+        if(objName == "marker")
+        {
+             X = marker.posX;
+             Y = marker.posY;
+             elev = marker.elevation;
+        }
+        if(objName == "lHand")
+        {
+            X = lHand.posX;
+            Y = lHand.posY;
+            elev = lHand.elevation;
+        }
+        if(objName == "rHand")
+        {
+            X = rHand.posX;
+            Y = rHand.posY;
+            elev = rHand.elevation;
+        }
+        //send the data onwards
+        //sendObjPos(objName,X,Y,elev);
+    }
+    //2) Recognize different markers
+    void checkMarker(std::string idString)
+    {
+        idString = marker.markerID;
+        //check idString and do stuff
+    }
+    //3) Send OSC messages
+    void sendOSC(std::string address, float value);
+   
+};
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
