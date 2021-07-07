@@ -167,6 +167,20 @@ struct ButtonFactory
     void designButton();
  //   3) Ship buttons to businesses
     void shipButtons(std::string address, int buttonType, int numToShip);
+
+    struct Button
+    {
+        std::string skuInfo = "BK_U_101";
+        unsigned int stockQuantity = 1456;
+        std::string style = "through hole";
+        std::string color="black";
+        int radiusInMm = 20;
+        int depthInMm = 5;
+
+        void orderButton( std::string sku, int amount );
+        int getRadius( std::string sku );
+        std::string getButtonColor( std::string sku );
+    };
 };
 /*
 Thing 2) Alien detection agency
@@ -200,22 +214,21 @@ struct AlienDetectionAgency //this is slightly revised from 1d
         //5) case number
         unsigned int caseNumber = 1296;
         //4) global coordinates detected from
-        struct Coordinate
-        {
-            double latitude = 0.0;
-            double longitude = 0.0;
-        };
-        Coordinate detectionCoord;
-        
+        double coordLatitude = 0.0;
+        double coordLongitude = 0.0;
         std::string agentFirstName;
         std::string agentLastName;
+        int agentID;
         std::string eventDescription;
         int numOfWitnesses;
         bool verified = false;
 
+        void enterData( std::string field, std::string info );
+        void changeWitnessCount(int count);
+        void changeAgent( std::string firstName, std::string lastName );
     };
     //1) process reports by field agents
-    void ReportHandler(FieldReport currReport)
+    void reportHandler(FieldReport currReport)
     {
         //2) filter out false reports
         if(!currReport.verified)
@@ -283,13 +296,10 @@ struct Racecar
 {
 
     //1) Dimensions of car (Length,Width,Height)
-    struct CarDimensions
-    {
-        double length = 6.25;
-        double width = 2.15;
-        double height = 1.15;
-    };
-    CarDimensions carDimensions;
+
+    double carLength = 6.25;
+    double carWidth = 2.15;
+    double carHeight = 1.15;
     //2) Weight of car
     double carWeight = 800;
     //3) Engine cylinder count
@@ -337,16 +347,13 @@ struct Racecar
     //4) Aspect ratio selection
     int aspectRatioNumber = 2;
     //5) Resolution (Width X Height)
-    struct Resolution
-    {
-        int width = 1920;
-        int height = 1080;
-    };
-    Resolution resolution;
+    int width = 1920;
+    int height = 1080;
+
     //1) Enable/Disable image capture
     void capture(bool state);
     //2) Stream data for Tracking objects and hands
-    void captureTrackData(std::string objName, int posX, int posY);
+    void captureTrackData( std::string objName, int posX, int posY );
     //3) Adjust Exposure
  };
 /*
@@ -370,44 +377,35 @@ Thing 6) Board
     int width = 70;
     //3) Active area (Tracked)
     //4) Inactive area (Non Tracked) (Consolidating these two into one bool based on area)
-    bool activeArea(int horizontal, int vertical);
+    bool activeArea( int horizontal, int vertical );
     //5) Location in virtual world space (X,Y,Z)
-    struct World
-    {
-        int X;
-        int Y;
-        int Z;
-    };
-    World room;
+    int worldX;
+    int worldY;
+    int worldZ;
 
     //this throws an end of non-void function warning
     //i would have just declared it but i wanted to
     //do two actions in one function (hands and marker)
-    int detectObjectType(std::string object, int objHeight)
+    int detectObjectType( std::string object, int objHeight )
     {
         //1) Detect object on surface
         if (objHeight <= 0.0f)
         {
             if(object == "marker")
             {
-              return 1;
+                return 1;
             }
             //2) Detect hand on surface
-            if(object == "Lhand")
+            else if(object == "Lhand")
             {
-              return 2;
+                return 2;
             }
             //2) Detect hand on surface
-            if(object == "Rhand")
+            else if(object == "Rhand")
             {
-              return 3;
-            }
-            
+                return 3;
+            }     
         }
-        else
-        {
-            return 0;
-        }  
     }
     //3) Reposition in world space
     void newPosition(int x, int y, int z);
@@ -442,7 +440,7 @@ struct FiducialMarker
     float elevation = 0.0f;
 
     //1) send position
-    void sendMarkerPos(int X,int Y);
+    void sendMarkerPos( int X,int Y );
     //2) send value
     void sendMarkerID(std::string ID);
     //3) send rotation
@@ -480,7 +478,7 @@ struct AudioEngine
     //1) produce audio from instruments
     void playAudio();
     //2) apply effects to instruments
-    void applyEffect(int effect,int instNumber);
+    void applyEffect( int effect,int instNumber );
     //3) record sounds
     void recordSound(bool state);
 }; 
@@ -512,7 +510,7 @@ struct MIDIinterface
     double midiPitchBend = 134567;
 
     //1) route MIDI data to audio engine
-    void routeMidi(int channel, int note, int vel);
+    void routeMidi( int channel, int note, int vel );
     //2) record MIDI input
     void recordMidiIn(bool state);
     //3) play back MIDI recording
@@ -538,46 +536,23 @@ struct ControlInterface
     Board board;
     //3) Fiducial Markers
     FiducialMarker marker;
-    //forgot to add hands so here they are
-    struct Hand
-    {
-      std::string name;
-      int posX;
-      int posY;
-      float elevation; 
-    };
-    Hand lHand;
-    Hand rHand;
     //4) Audio Engine
     AudioEngine audio;
     //5) MIDI interface
     MIDIinterface midi;
 
-    //1) Detect position (horzontal and vertical) of hand or marker
+    //1) Detect position (horzontal and vertical) if it's a marker
     void getObjData(std::string objName)
     {
         int X = 0;
         int Y = 0;
         float elev = 0.0f;
-        //normally would do switch/case but keeping to the knowledgebase
         if(objName == "marker")
         {
              X = marker.posX;
              Y = marker.posY;
              elev = marker.elevation;
-        }
-        if(objName == "lHand")
-        {
-            X = lHand.posX;
-            Y = lHand.posY;
-            elev = lHand.elevation;
-        }
-        if(objName == "rHand")
-        {
-            X = rHand.posX;
-            Y = rHand.posY;
-            elev = rHand.elevation;
-        }
+        }      
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
     }
@@ -588,7 +563,7 @@ struct ControlInterface
         //check idString and do stuff
     }
     //3) Send OSC messages
-    void sendOSC(std::string address, float value);
+    void sendOSC( std::string address, float value );
    
 };
 /*
