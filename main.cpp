@@ -108,8 +108,40 @@ struct CarWash
     You'll need to insert the Person struct from the video in the space below.
  */
 
+struct Person
+{
+    int age;
+    int height;
+    float hairLength;
+    float GPA;
+    unsigned int SATScore;
+    int distanceTraveled;
 
+    void run(int howFast,bool startWithLeftFoot);
 
+    struct Foot
+    {
+        void stepforward();
+        int stepSize();
+    };
+    Foot leftFoot;
+    Foot rightFoot;
+};
+
+void Person::run(int howFast, bool startWithLeftFoot)
+{
+    if(startWithLeftFoot)
+    {
+        leftFoot.stepforward();
+        rightFoot.stepforward();
+    }
+    else
+    {
+        rightFoot.stepforward();
+        leftFoot.stepforward();
+    }
+    distanceTraveled += leftFoot.stepSize() + rightFoot.stepSize();
+}
 
 
  /*
@@ -124,38 +156,16 @@ struct CarWash
  4) After you finish defining each type/function, click the [run] button.  Clear up any errors or warnings as best you can.
  */
 
-
-/*
-Thing 1) Button Factory
-5 properties:
-    1) Number of workers
-    2) Number of buttons per month manufactured
-    3) Number of button types   
-    4) Average cost of button
-    5) Profit per quarter
-3 things it can do:
-    1) Manufacture buttons
-    2) Design buttons
-    3) Ship buttons to businesses
- */
 struct ButtonFactory
 {
- //   1) Number of workers
     int numOfWorkers = 30;
- //   2) Number of buttons per month manufactured
     int numOfButtonsPerMo = 10500;
- //   3) Number of button types
     int numOfButtonTypes = 107;   
- //   4) Average cost of button
     float avgCostPerButton = 0.03f;
- //   5) Profit per quarter
     float profitPerQtr = 9450.00f;
-//3 things it can do:
- //   1) Manufacture buttons
+
     void makeButton(int buttonType);
- //   2) Design buttons
     void designButton();
- //   3) Ship buttons to businesses
     void shipButtons(std::string address, int buttonType, int numToShip);
 
     struct Button
@@ -172,38 +182,19 @@ struct ButtonFactory
         std::string getButtonColor( std::string sku );
     };
 };
-/*
-Thing 2) Alien detection agency
-5 properties:
-    1) number of aliens on ground
-    2) fleet size
-    3) intelligence (IQ)
-    4) global coordinates detected from
-    5) case number
-3 things it can do:
-    1) process reports by field agents
-    2) filter out false reports
-    3) publish vetted reports
- */
+
 
 struct AlienDetectionAgency //this is slightly revised from 1d
 {
-    //1) number of aliens on ground
     int aliensOnGround = 731;
-    //2) fleet size
     int alienFleetSize = 437;
-    //3) intelligence (IQ)
     int avgAlienIntelligence = 130;
-    //4) Total Field Reports
     unsigned int totalFieldReports = 1247;
-    //5) Total Field Agents
     unsigned int totalFieldAgents = 12541;
 
     struct FieldReport
     {
-        //5) case number
         unsigned int caseNumber = 1296;
-        //4) global coordinates detected from
         double coordLatitude = 0.0;
         double coordLongitude = 0.0;
         std::string agentFirstName;
@@ -217,92 +208,47 @@ struct AlienDetectionAgency //this is slightly revised from 1d
         void changeWitnessCount(int count);
         void changeAgent( std::string firstName, std::string lastName );
     };
-    //1) process reports by field agents
+
     void reportHandler(FieldReport currReport)
     {
-        //2) filter out false reports
         if(!currReport.verified)
         {
             //mark report as unverified
         }
-        //3) publish vetted reports
         else
         {
             //verified report
             //publish report to site
         }
     }
+    void getTotalAgents();
+    void warnScully();
 }; 
 
-/*
-Thing 3) Instrument
-5 properties:
-    1) Pitch frequency
-    2) Volume amount
-    3) Timbre value
-    4) Attack time
-    5) Decay time
-3 things it can do:
-    1) Play a note
-    2) Bend Pitch
-    3) Adjust Timbre
- */
 
 struct Instrument
 {
- //   1) Pitch frequency
     double instPitchFrq = 1000;
- //   2) Volume amount
     float instVolume = 1.0f;
- //   3) Timbre value
     float instTimbre = 0.5f;
- //   4) Attack time
     int instAttack = 15;
- //   5) Decay time
     int instDecay = 2500;
-//3 things it can do:
- //   1) Play a note
     void playNote(double pitch, float volume, float timbre);
- //   2) Bend Pitch
     void sendPitchValue (double pitch);
- //   3) Adjust Timbre
     void changeTimbre (float timbre);
 };
 
-/*
-Thing 4) Racecar
-5 properties:
-    1) Dimensions of car (Length,Width,Height)
-    2) Weight of car
-    3) Engine cylinder count
-    4) Top speed in MPH/KPH
-    5) Max RPMs on engine
-3 things it can do:
-    1) start and stop engine
-    2) accelerate speed
-    3) set current gear
- */
 struct Racecar
 {
-
-    //1) Dimensions of car (Length,Width,Height)
-
     double carLength = 6.25;
     double carWidth = 2.15;
     double carHeight = 1.15;
-    //2) Weight of car
     double carWeight = 800;
-    //3) Engine cylinder count
     int engCylCount = 6;
-    //4) Top speed in MPH/KPH
     unsigned int carTopSpeedMPH = 210;
-    // not sure if it's advisable to calculate within a struct, but i did have speed in MPH and KPH
     double carTopSpeedKPH = carTopSpeedMPH * 1.609344;
-    //5) Max RPMs on engine
     unsigned int engMaxRPM = 11300;
-    //1) start and stop engine
     void engineStart();
-    //2) accelerate speed
     void accelerate(unsigned int currSpeed, unsigned int topSpeed)
     {
         if(currSpeed < topSpeed)
@@ -310,228 +256,102 @@ struct Racecar
             currSpeed += 5;
         }
     }
-    //3) set current gear
     int currGear();
 };
 
-/* Thing 5) Camera
-5 properties:
-    1) Focus amount
-    2) Exposure value
-    3) White balance 
-    4) Aspect ratio selection
-    5) Resolution (Width X Height)
-3 things it can do:
-    1) Enable/Disable image capture
-    2) Stream data for Tracking objects and hands
-    3) Adjust Exposure
- */
  struct Camera
  {
-    //1) Focus amount
     float focusValue = 0.5f;
-    //2) Exposure value
     float exposureValue = 1.3f;
-    //3) White balance 
     float whiteBalanceValue = 0.8f;
-    //4) Aspect ratio selection
     int aspectRatioNumber = 2;
-    //5) Resolution (Width X Height)
     int width = 1920;
     int height = 1080;
 
-    //1) Enable/Disable image capture
     void capture(bool state);
-    //2) Stream data for Tracking objects and hands
     void captureTrackData( std::string objName, int posX, int posY );
-    //3) Adjust Exposure
+    void adjustExposure(float newValue);
  };
-/*
-Thing 6) Board
-5 properties:
-    1) Height in cm
-    2) Width in cm
-    3) Active area (Tracked)
-    4) Inactive area (Non Tracked)
-    5) Location in virtual world space (X,Y,Z)
-3 things it can do:
-    1) Detect object on surface
-    2) Detect hand on surface
-    3) Reposition in world space
- */
+
  struct Board
  {
-    //1) Height in cm
     int height = 70;
-    //2) Width in cm
     int width = 70;
-    //3) Active area (Tracked)
-    //4) Inactive area (Non Tracked) (Consolidating these two into one bool based on area)
     bool activeArea( int horizontal, int vertical );
-    //5) Location in virtual world space (X,Y,Z)
     int worldX;
     int worldY;
     int worldZ;
 
-    //this throws an end of non-void function warning
-    //i would have just declared it but i wanted to
-    //do two actions in one function (hands and marker)
     int detectObjectType( std::string object, int objHeight )
     {
-        //1) Detect object on surface
         if (objHeight <= 0.0f)
         {
             if(object == "marker")
             {
                 return 1;
             }
-            //2) Detect hand on surface
             else if(object == "Lhand")
             {
                 return 2;
             }
-            //2) Detect hand on surface
             else if(object == "Rhand")
             {
                 return 3;
             }     
         }
     }
-    //3) Reposition in world space
     void newPosition(int x, int y, int z);
+    void initBoard();
  };
-
-
-/*
-Thing 7) Fiducial Marker
-5 properties:
-    1) Value
-    2) Position horizontal
-    3) Position Vertical
-    4) Rotation
-    5) Elevation
-3 things it can do:
-    1) send position
-    2) send value
-    3) send rotation
- */
 
 struct FiducialMarker
 {
-    //1) Value (ID)
     std::string markerID= "marker01";
-    //2) Position horizontal
     int posX = 10;
-    //3) Position Vertical
     int posY = 100;
-    //4) Rotation
     int rotation = 0;
-    //5) Elevation
-    float elevation = 0.0f;
+    int elevation = 0.0f;
 
-    //1) send position
     void sendMarkerPos( int X,int Y );
-    //2) send value
     void sendMarkerID(std::string ID);
-    //3) send rotation
     void sendMarkerRot(int rot);
-    //or really you just do all data in one call (avoids race condition)
     void sendMarkerData(std::string ID, int X, int Y, float elev, int rot);
 };
 
-/*
-Thing 8) Audio Engine
-5 properties:
-    1) Master Volume
-    2) Section
-    3) Active instrument count
-    4) Active Effect count
-    5) External Input volume
-3 things it can do:
-    1) produce audio from instruments
-    2) apply effects to instruments
-    3) record sounds 
-*/
 struct AudioEngine
 {
-    //1) Master Volume
     float masterVol = 0.5f;
-    //2) Section
     int Section = 3;
-    //3) Active instrument count
     int activeInst = 4;
-    //4) Active Effect count
     int activeEffects = 3;
-    //5) External Input volume
     float extInputVol = 0.0f;
     
-    //1) produce audio from instruments
     void playAudio();
-    //2) apply effects to instruments
     void applyEffect( int effect,int instNumber );
-    //3) record sounds
     void recordSound(bool state);
 }; 
 
-/*
-Thing 9) MIDI Interface
-5 properties:
-    1) MIDI Channel
-    2) MIDI note number
-    3) MIDI velocity
-    4) MIDI Controller Value
-    5) MIDI Pitch Bend
-3 things it can do:
-    1) route MIDI data to audio engine
-    2) record MIDI input
-    3) play back MIDI recording
- */
 struct MIDIinterface
 {
-    //1) MIDI Channel
     int midiCh = 0;
-    //2) MIDI note number
     int midiNote = 60;
-    //3) MIDI velocity
     int midiVel = 80;
-    //4) MIDI Controller Value
     int midiCtl = 7;
-    //5) MIDI Pitch Bend
     double midiPitchBend = 134567;
 
-    //1) route MIDI data to audio engine
     void routeMidi( int channel, int note, int vel );
-    //2) record MIDI input
     void recordMidiIn(bool state);
-    //3) play back MIDI recording
     void playMidiData(bool state);
 };
-/*
-Thing 10) Control Interface
-    1) Camera
-    2) Board
-    3) Fiducial Markers
-    4) Audio Engine
-    5) MIDI interface
-3 things it can do:
-    1) Detect position (horzontal and vertical) of hand or marker
-    2) Recognize different markers 
-    3) Send OSC messages
- */
+
 struct ControlInterface
 {
-    //1) Camera
     Camera camera;
-    //2) Board
     Board board;
-    //3) Fiducial Markers
     FiducialMarker marker;
-    //4) Audio Engine
     AudioEngine audio;
-    //5) MIDI interface
     MIDIinterface midi;
 
-    //1) Detect position (horzontal and vertical) if it's a marker
     void getObjData(std::string objName)
     {
         int X = 0;
@@ -546,13 +366,10 @@ struct ControlInterface
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
     }
-    //2) Recognize different markers
     void checkMarker(std::string idString)
     {
         idString = marker.markerID;
-        //check idString and do stuff
     }
-    //3) Send OSC messages
     void sendOSC( std::string address, float value );
    
 };
@@ -573,5 +390,76 @@ struct ControlInterface
 #include <iostream>
 int main()
 {
+    //ButtonFactory
+    ButtonFactory newBtnFactory;
+    ButtonFactory::Button newButton;
+    newBtnFactory.makeButton( 2335 );
+    newBtnFactory.designButton();
+    newBtnFactory.shipButtons( "1458 State St, Anytown US, 10106", 2335, 200 );
+
+    newButton.orderButton( "101_DRBQ-BK", 150 );
+    newButton.getRadius( "101_DRBQ-BK" );
+    newButton.getButtonColor( "101_DRBQ-BK" );
+    
+    //AlienDetectionAgency
+    AlienDetectionAgency newAgency;
+    AlienDetectionAgency::FieldReport newReport;
+    newAgency.reportHandler(newReport);
+    newAgency.getTotalAgents();
+    newAgency.warnScully();
+
+    newReport.enterData( "Agent Name:", "John Smith" );
+    newReport.changeWitnessCount( 2 );
+    newReport.changeAgent( "Jack", "Ryan" );
+
+    //Instrument
+    Instrument newInst;
+    newInst.playNote( 440.3, 0.75f, 0.90f );
+    newInst.sendPitchValue( 1439.45 );
+    newInst.changeTimbre( 0.4f );
+
+    //Racecar
+    Racecar newRacecar;
+    newRacecar.engineStart();
+    newRacecar.accelerate( 80, 210 );
+    newRacecar.currGear();
+
+    //Camera
+    Camera newCamera;
+    newCamera.capture( true );
+    newCamera.captureTrackData( "Marker01", 480, 640 );
+    newCamera.adjustExposure( 0.5f );
+
+    //Board
+    Board newBoard;
+    newBoard.detectObjectType( "marker", 30 );
+    newBoard.newPosition( 400, 800, 23 );
+    newBoard.initBoard();
+
+    //FiducialMarker
+    FiducialMarker newMarker;
+    newMarker.sendMarkerPos( 430, 783 );
+    newMarker.sendMarkerID( "marker01" );
+    newMarker.sendMarkerRot( 93 );
+    newMarker.sendMarkerData( "marker01", 430, 783, 37, 93 );
+
+    //AudioEngine
+    AudioEngine newAudioEngine;
+    newAudioEngine.playAudio();
+    newAudioEngine.applyEffect( 3, 6 );
+    newAudioEngine.recordSound( false );
+
+    //MIDIinterface
+    MIDIinterface newMIDIinterface;
+    newMIDIinterface.routeMidi( 0, 60, 90 );
+    newMIDIinterface.recordMidiIn( true );
+    newMIDIinterface.playMidiData( false );
+
+    //ControlInterface
+    ControlInterface newCtrlInterface;
+    newCtrlInterface.getObjData( "Keyboard1" );
+    newCtrlInterface.checkMarker( "marker04" );
+    newCtrlInterface.sendOSC( "127.34.56.70", 0.85f );
+
     std::cout << "good to go!" << std::endl;
 }
