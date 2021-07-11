@@ -233,8 +233,6 @@ std::string ButtonFactory::Button::getButtonColor( std::string sku )
     return buttonColor;
 }
 
-
-
 struct AlienDetectionAgency //this is slightly revised from 1d
 {
     int aliensOnGround = 731;
@@ -308,7 +306,6 @@ void AlienDetectionAgency::FieldReport::changeAgent( std::string firstName, std:
     lastName = "Forth";
 }
 
-
 struct Instrument
 {
     double instPitchFrq = 1000;
@@ -337,8 +334,6 @@ void Instrument::changeTimbre (float timbre)
 {
     timbre = 0.6f;
 }
-
-
 
 struct Racecar
 {
@@ -374,11 +369,8 @@ int Racecar::currGear()
     return 3;
 }
 
-
-
-
- struct Camera
- {
+struct Camera
+{
     float focusValue = 0.5f;
     float exposureValue = 1.3f;
     float whiteBalanceValue = 0.8f;
@@ -389,27 +381,27 @@ int Racecar::currGear()
     void capture(bool state);
     void captureTrackData( std::string objName, int posX, int posY );
     void adjustExposure(float newValue);
- };
+};
 
- void Camera::capture(bool state)
- {
-     state = true;
- }
+void Camera::capture(bool state)
+{
+    state = true;
+}
 
- void Camera::captureTrackData(std::string objName, int posX, int posY)
- {
-     objName = "marker03";
-     posX=480;
-     posY=500;
- }
+void Camera::captureTrackData(std::string objName, int posX, int posY)
+{
+    objName = "marker03";
+    posX=480;
+    posY=500;
+}
 
- void Camera::adjustExposure(float newValue)
- {
-     newValue = 0.7f;
- }
+void Camera::adjustExposure(float newValue)
+{
+    newValue = 0.7f;
+}
 
- struct Board
- {
+struct Board
+{
     int height = 70;
     int width = 70;
     bool activeArea( int horizontal, int vertical );
@@ -420,11 +412,11 @@ int Racecar::currGear()
     int detectObjectType( std::string object, int objHeight );
     void newPosition(int x, int y, int z);
     void initBoard();
- };
+};
 
- int Board::detectObjectType(std::string object, int objHeight)
- {
-     //detect if object lower than min height - returns 0 otherwise
+int Board::detectObjectType(std::string object, int objHeight)
+{
+    //detect if object lower than min height - returns 0 otherwise
     int minHeight = 5;
     if (objHeight <= minHeight)
     {
@@ -442,20 +434,19 @@ int Racecar::currGear()
         }     
     }
     return 0;
- }
+}
 
- void Board::newPosition(int x, int y, int z)
- {
-     x = 34;
-     y = 690;
-     z = 30;
+void Board::newPosition(int x, int y, int z)
+{
+    x = 34;
+    y = 690;
+    z = 30;
+}
 
- }
+void Board::initBoard()
+{
 
- void Board::initBoard()
- {
-
- }
+}
 
 struct FiducialMarker
 {
@@ -581,20 +572,18 @@ void ControlInterface::getObjData(std::string objName)
     }      
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
-    }
+}
 
-    void ControlInterface::checkMarker(std::string idString)
-    {
-        idString = marker.markerID;
-    }
+void ControlInterface::checkMarker(std::string idString)
+{
+    idString = marker.markerID;
+}
 
-    void ControlInterface::sendOSC(std::string address, float value)
-    {
-        address = "127.0.0.1";
-        value = 0.6f;
-    }
-
-
+void ControlInterface::sendOSC(std::string address, float value)
+{
+    address = "127.0.0.1";
+    value = 0.6f;
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
