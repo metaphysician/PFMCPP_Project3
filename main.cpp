@@ -121,8 +121,8 @@ struct Person
 
     struct Foot
     {
-        void stepforward();
-        int stepSize();
+        void stepforward(); 
+        int stepSize(); 
     };
     Foot leftFoot;
     Foot rightFoot;
@@ -130,6 +130,8 @@ struct Person
 
 void Person::run(int howFast, bool startWithLeftFoot)
 {
+    howFast = 5;
+
     if(startWithLeftFoot)
     {
         leftFoot.stepforward();
@@ -141,6 +143,17 @@ void Person::run(int howFast, bool startWithLeftFoot)
         leftFoot.stepforward();
     }
     distanceTraveled += leftFoot.stepSize() + rightFoot.stepSize();
+}
+
+void Person::Foot::stepforward()
+{
+
+}
+
+int Person::Foot::stepSize()
+{
+    int size = 4;
+    return size;
 }
 
 
@@ -184,6 +197,44 @@ struct ButtonFactory
 };
 
 
+void ButtonFactory::makeButton(int buttonType)
+{
+    buttonType = 3;
+}
+
+void ButtonFactory::designButton()
+{
+
+}
+
+void ButtonFactory::shipButtons(std::string address, int buttonType, int numToShip)
+{
+    address = "2904 Lark St. Moraine, ND 54206";
+    buttonType = 45;
+    numToShip = 140;
+}
+
+void ButtonFactory::Button::orderButton(std::string sku, int amount)
+{
+    sku = "HG74956";
+    amount = 23;
+}
+
+int ButtonFactory::Button::getRadius(std::string sku)
+{
+    sku = "BK203-UT";
+    return 30;
+}
+
+std::string ButtonFactory::Button::getButtonColor( std::string sku )
+{
+    sku = ButtonFactory::Button::skuInfo;
+    std::string buttonColor = "Black";
+    return buttonColor;
+}
+
+
+
 struct AlienDetectionAgency //this is slightly revised from 1d
 {
     int aliensOnGround = 731;
@@ -209,21 +260,53 @@ struct AlienDetectionAgency //this is slightly revised from 1d
         void changeAgent( std::string firstName, std::string lastName );
     };
 
-    void reportHandler(FieldReport currReport)
-    {
-        if(!currReport.verified)
-        {
-            //mark report as unverified
-        }
-        else
-        {
-            //verified report
-            //publish report to site
-        }
-    }
-    void getTotalAgents();
+    void reportHandler(FieldReport currReport);
+
+    int getTotalAgents();
     void warnScully();
 }; 
+
+void AlienDetectionAgency::reportHandler( AlienDetectionAgency::FieldReport currReport )
+{
+
+    if(!currReport.verified)
+    {
+        //mark report as unverified
+    }
+    else
+    {
+        //verified report
+        //publish report to site
+    }
+    
+}
+
+int AlienDetectionAgency::getTotalAgents()
+{
+    return 1243;
+}
+
+void AlienDetectionAgency::warnScully()
+{
+    
+}
+
+void AlienDetectionAgency::FieldReport::enterData(std::string field, std::string info)
+{
+    field = "John Q. Public";
+    info = "agent 1432";
+}
+
+void AlienDetectionAgency::FieldReport::changeWitnessCount(int count)
+{
+    count += 1;
+}
+
+void AlienDetectionAgency::FieldReport::changeAgent( std::string firstName, std::string lastName )
+{
+    firstName = "Sally";
+    lastName = "Forth";
+}
 
 
 struct Instrument
@@ -238,6 +321,25 @@ struct Instrument
     void changeTimbre (float timbre);
 };
 
+void Instrument::playNote(double pitch, float volume, float timbre)
+{
+    pitch = 60;
+    volume = 1.0f;
+    timbre = 0.6f;
+}
+
+void Instrument::sendPitchValue(double pitch)
+{
+    pitch = 600.765;
+}
+
+void Instrument::changeTimbre (float timbre)
+{
+    timbre = 0.6f;
+}
+
+
+
 struct Racecar
 {
     double carLength = 6.25;
@@ -249,15 +351,31 @@ struct Racecar
     double carTopSpeedKPH = carTopSpeedMPH * 1.609344;
     unsigned int engMaxRPM = 11300;
     void engineStart();
-    void accelerate(unsigned int currSpeed, unsigned int topSpeed)
-    {
-        if(currSpeed < topSpeed)
-        {
-            currSpeed += 5;
-        }
-    }
+    void accelerate(unsigned int currSpeed);
     int currGear();
 };
+
+void Racecar::engineStart()
+{
+
+}
+
+void Racecar::accelerate(unsigned int currSpeed)
+{
+
+    if(currSpeed < Racecar::carTopSpeedMPH)
+    {
+        currSpeed += 5;
+    }
+}
+
+int Racecar::currGear()
+{
+    return 3;
+}
+
+
+
 
  struct Camera
  {
@@ -273,6 +391,23 @@ struct Racecar
     void adjustExposure(float newValue);
  };
 
+ void Camera::capture(bool state)
+ {
+     state = true;
+ }
+
+ void Camera::captureTrackData(std::string objName, int posX, int posY)
+ {
+     objName = "marker03";
+     posX=480;
+     posY=500;
+ }
+
+ void Camera::adjustExposure(float newValue)
+ {
+     newValue = 0.7f;
+ }
+
  struct Board
  {
     int height = 70;
@@ -282,27 +417,45 @@ struct Racecar
     int worldY;
     int worldZ;
 
-    int detectObjectType( std::string object, int objHeight )
-    {
-        if (objHeight <= 0.0f)
-        {
-            if(object == "marker")
-            {
-                return 1;
-            }
-            else if(object == "Lhand")
-            {
-                return 2;
-            }
-            else if(object == "Rhand")
-            {
-                return 3;
-            }     
-        }
-    }
+    int detectObjectType( std::string object, int objHeight );
     void newPosition(int x, int y, int z);
     void initBoard();
  };
+
+ int Board::detectObjectType(std::string object, int objHeight)
+ {
+     //detect if object lower than min height - returns 0 otherwise
+    int minHeight = 5;
+    if (objHeight <= minHeight)
+    {
+        if(object == "marker")
+        {
+            return 1;
+        }
+        else if(object == "Lhand")
+        {
+            return 2;
+        }
+        else if(object == "Rhand")
+        {
+            return 3;
+        }     
+    }
+    return 0;
+ }
+
+ void Board::newPosition(int x, int y, int z)
+ {
+     x = 34;
+     y = 690;
+     z = 30;
+
+ }
+
+ void Board::initBoard()
+ {
+
+ }
 
 struct FiducialMarker
 {
@@ -315,8 +468,33 @@ struct FiducialMarker
     void sendMarkerPos( int X,int Y );
     void sendMarkerID(std::string ID);
     void sendMarkerRot(int rot);
-    void sendMarkerData(std::string ID, int X, int Y, float elev, int rot);
+    void sendMarkerData(std::string ID, int X, int Y, int elev, int rot);
 };
+
+void FiducialMarker::sendMarkerPos(int X, int Y)
+{
+    X = 620;
+    Y = 195;
+}
+
+void FiducialMarker::sendMarkerID(std::string ID)
+{
+    ID = "marker01";
+}
+
+void FiducialMarker::sendMarkerRot(int rot)
+{
+    rot = 270;
+}
+
+void FiducialMarker::sendMarkerData(std::string ID, int X, int Y, int elev, int rot)
+{
+    ID = "marker01";
+    X = 620;
+    Y = 195;
+    elev = 20;
+    rot = 270;
+}
 
 struct AudioEngine
 {
@@ -331,6 +509,22 @@ struct AudioEngine
     void recordSound(bool state);
 }; 
 
+void AudioEngine::playAudio()
+{
+
+}
+
+void AudioEngine::applyEffect(int effect, int instNumber)
+{
+    effect = AudioEngine::activeEffects;
+    instNumber = 5;
+}
+
+void AudioEngine::recordSound(bool state)
+{
+    state = true;
+}
+
 struct MIDIinterface
 {
     int midiCh = 0;
@@ -344,6 +538,23 @@ struct MIDIinterface
     void playMidiData(bool state);
 };
 
+void MIDIinterface::routeMidi( int channel, int note, int vel )
+{
+    channel = MIDIinterface::midiCh;
+    note = MIDIinterface::midiNote;
+    vel = MIDIinterface::midiVel;
+}
+
+void MIDIinterface::recordMidiIn(bool state)
+{
+    state = true;
+}
+
+void MIDIinterface::playMidiData(bool state)
+{
+    state = false;
+}
+
 struct ControlInterface
 {
     Camera camera;
@@ -352,27 +563,39 @@ struct ControlInterface
     AudioEngine audio;
     MIDIinterface midi;
 
-    void getObjData(std::string objName)
+    void getObjData(std::string objName);
+    void checkMarker(std::string idString);
+    void sendOSC( std::string address, float value );
+};
+
+void ControlInterface::getObjData(std::string objName)
+{
+    int X = 0;
+    int Y = 0;
+    float elev = 0.0f;
+    if(objName == "marker")
     {
-        int X = 0;
-        int Y = 0;
-        float elev = 0.0f;
-        if(objName == "marker")
-        {
-             X = marker.posX;
-             Y = marker.posY;
-             elev = marker.elevation;
-        }      
+        X = marker.posX;
+        Y = marker.posY;
+        elev = marker.elevation;
+    }      
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
     }
-    void checkMarker(std::string idString)
+
+    void ControlInterface::checkMarker(std::string idString)
     {
         idString = marker.markerID;
     }
-    void sendOSC( std::string address, float value );
-   
-};
+
+    void ControlInterface::sendOSC(std::string address, float value)
+    {
+        address = "127.0.0.1";
+        value = 0.6f;
+    }
+
+
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -421,7 +644,7 @@ int main()
     //Racecar
     Racecar newRacecar;
     newRacecar.engineStart();
-    newRacecar.accelerate( 80, 210 );
+    newRacecar.accelerate( 80 );
     newRacecar.currGear();
 
     //Camera
