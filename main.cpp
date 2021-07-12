@@ -177,7 +177,7 @@ struct ButtonFactory
     float avgCostPerButton = 0.03f;
     float profitPerQtr = 9450.00f;
 
-    void makeButton(int buttonType);
+    void makeButton(std::string sku, int amount);
     void designButton();
     void shipButtons(std::string address, int buttonType, int numToShip);
 
@@ -197,9 +197,11 @@ struct ButtonFactory
 };
 
 
-void ButtonFactory::makeButton(int buttonType)
+void ButtonFactory::makeButton(std::string sku, int amount)
 {
-    buttonType = 3;
+    Button button;
+    button.skuInfo = sku;
+    amount += button.stockQuantity;
 }
 
 void ButtonFactory::designButton()
@@ -209,28 +211,25 @@ void ButtonFactory::designButton()
 
 void ButtonFactory::shipButtons(std::string address, int buttonType, int numToShip)
 {
-    address = "2904 Lark St. Moraine, ND 54206";
-    buttonType = 45;
-    numToShip = 140;
+    std::cout << "Ship To:" << address << " Type:" << buttonType << " Quantity:" << numToShip;
 }
 
 void ButtonFactory::Button::orderButton(std::string sku, int amount)
-{
-    sku = "HG74956";
-    amount = 23;
+{   
+    amount -= stockQuantity;
+    skuInfo = sku;
 }
 
 int ButtonFactory::Button::getRadius(std::string sku)
 {
-    sku = "BK203-UT";
-    return 30;
+    skuInfo = sku;
+    return radiusInMm;
 }
 
 std::string ButtonFactory::Button::getButtonColor( std::string sku )
 {
     sku = ButtonFactory::Button::skuInfo;
-    std::string buttonColor = "Black";
-    return buttonColor;
+    return color;
 }
 
 struct AlienDetectionAgency //this is slightly revised from 1d
@@ -260,7 +259,7 @@ struct AlienDetectionAgency //this is slightly revised from 1d
 
     void reportHandler(FieldReport currReport);
 
-    int getTotalAgents();
+    unsigned int getTotalAgents();
     void warnScully();
 }; 
 
@@ -279,9 +278,9 @@ void AlienDetectionAgency::reportHandler( AlienDetectionAgency::FieldReport curr
     
 }
 
-int AlienDetectionAgency::getTotalAgents()
+unsigned int AlienDetectionAgency::getTotalAgents()
 {
-    return 1243;
+    return totalFieldAgents;
 }
 
 void AlienDetectionAgency::warnScully()
@@ -289,6 +288,7 @@ void AlienDetectionAgency::warnScully()
     
 }
 
+//figure this one out
 void AlienDetectionAgency::FieldReport::enterData(std::string field, std::string info)
 {
     field = "John Q. Public";
@@ -297,13 +297,13 @@ void AlienDetectionAgency::FieldReport::enterData(std::string field, std::string
 
 void AlienDetectionAgency::FieldReport::changeWitnessCount(int count)
 {
-    count += 1;
+    numOfWitnesses = count;
 }
 
 void AlienDetectionAgency::FieldReport::changeAgent( std::string firstName, std::string lastName )
 {
-    firstName = "Sally";
-    lastName = "Forth";
+    agentFirstName = firstName;
+    agentFirstName = lastName;
 }
 
 struct Instrument
@@ -320,19 +320,19 @@ struct Instrument
 
 void Instrument::playNote(double pitch, float volume, float timbre)
 {
-    pitch = 60;
-    volume = 1.0f;
-    timbre = 0.6f;
+    instPitchFrq = pitch;
+    instVolume = volume;
+    instTimbre = timbre;
 }
 
-void Instrument::sendPitchValue(double pitch)
+void Instrument::sendPitchValue(double bendAmount)
 {
-    pitch = 600.765;
+    instPitchFrq += bendAmount;
 }
 
 void Instrument::changeTimbre (float timbre)
 {
-    timbre = 0.6f;
+    instTimbre=timbre;
 }
 
 struct Racecar
@@ -347,7 +347,7 @@ struct Racecar
     unsigned int engMaxRPM = 11300;
     void engineStart();
     void accelerate(unsigned int currSpeed);
-    int currGear();
+    int currentGear(int gearNumber);
 };
 
 void Racecar::engineStart()
@@ -364,9 +364,9 @@ void Racecar::accelerate(unsigned int currSpeed)
     }
 }
 
-int Racecar::currGear()
+int Racecar::currentGear(int currGear)
 {
-    return 3;
+    return currGear;
 }
 
 struct Camera
@@ -378,26 +378,25 @@ struct Camera
     int width = 1920;
     int height = 1080;
 
-    void capture(bool state);
-    void captureTrackData( std::string objName, int posX, int posY );
+    void toggleCaptureImage(bool enable);
+    void setDimensions( int X, int Y );
     void adjustExposure(float newValue);
 };
 
-void Camera::capture(bool state)
+void Camera::toggleCaptureImage(bool state)
 {
-    state = true;
+    state = !state;
 }
 
-void Camera::captureTrackData(std::string objName, int posX, int posY)
+void Camera::setDimensions(int X, int Y)
 {
-    objName = "marker03";
-    posX=480;
-    posY=500;
+    width = X;
+    height = Y;
 }
 
 void Camera::adjustExposure(float newValue)
 {
-    newValue = 0.7f;
+    exposureValue = newValue;
 }
 
 struct Board
@@ -418,7 +417,9 @@ int Board::detectObjectType(std::string object, int objHeight)
 {
     //detect if object lower than min height - returns 0 otherwise
     int minHeight = 5;
-    if (objHeight <= minHeight)
+    height = objHeight;
+
+    if (height <= minHeight)
     {
         if(object == "marker")
         {
@@ -438,9 +439,9 @@ int Board::detectObjectType(std::string object, int objHeight)
 
 void Board::newPosition(int x, int y, int z)
 {
-    x = 34;
-    y = 690;
-    z = 30;
+    worldX = x;
+    worldY = y;
+    worldZ = z;
 }
 
 void Board::initBoard()
@@ -456,35 +457,35 @@ struct FiducialMarker
     int rotation = 0;
     int elevation = 0.0f;
 
-    void sendMarkerPos( int X,int Y );
-    void sendMarkerID(std::string ID);
-    void sendMarkerRot(int rot);
-    void sendMarkerData(std::string ID, int X, int Y, int elev, int rot);
+    void setMarkerPos( int X,int Y );
+    void setMarkerID(std::string ID);
+    void setMarkerRot(int rot);
+    void setMarkerData(std::string ID, int X, int Y, int elev, int rot);
 };
 
-void FiducialMarker::sendMarkerPos(int X, int Y)
+void FiducialMarker::setMarkerPos(int X, int Y)
 {
-    X = 620;
-    Y = 195;
+    posX = X;
+    posY = Y;
 }
 
-void FiducialMarker::sendMarkerID(std::string ID)
+void FiducialMarker::setMarkerID(std::string ID)
 {
-    ID = "marker01";
+    markerID = ID;
 }
 
-void FiducialMarker::sendMarkerRot(int rot)
+void FiducialMarker::setMarkerRot(int rot)
 {
-    rot = 270;
+    rotation = rot;
 }
 
-void FiducialMarker::sendMarkerData(std::string ID, int X, int Y, int elev, int rot)
+void FiducialMarker::setMarkerData(std::string ID, int X, int Y, int elev, int rot)
 {
-    ID = "marker01";
-    X = 620;
-    Y = 195;
-    elev = 20;
-    rot = 270;
+    markerID = ID;
+    posX = X;
+    posY = Y;
+    elevation = elev;
+    rotation = rot;
 }
 
 struct AudioEngine
@@ -504,11 +505,11 @@ void AudioEngine::playAudio()
 {
 
 }
-
-void AudioEngine::applyEffect(int effect, int instNumber)
+//Needs Fixing
+void AudioEngine::applyEffect( int effect, int instNumber )
 {
-    effect = AudioEngine::activeEffects;
-    instNumber = 5;
+    activeEffects = effect;
+    activeInst = instNumber;
 }
 
 void AudioEngine::recordSound(bool state)
@@ -531,9 +532,9 @@ struct MIDIinterface
 
 void MIDIinterface::routeMidi( int channel, int note, int vel )
 {
-    channel = MIDIinterface::midiCh;
-    note = MIDIinterface::midiNote;
-    vel = MIDIinterface::midiVel;
+    midiCh = channel;
+    midiNote = note;
+    midiVel = vel;
 }
 
 void MIDIinterface::recordMidiIn(bool state)
@@ -558,7 +559,7 @@ struct ControlInterface
     void checkMarker(std::string idString);
     void sendOSC( std::string address, float value );
 };
-
+//Maybe okay?
 void ControlInterface::getObjData(std::string objName)
 {
     int X = 0;
@@ -573,12 +574,12 @@ void ControlInterface::getObjData(std::string objName)
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
 }
-
+//Need attention
 void ControlInterface::checkMarker(std::string idString)
 {
     idString = marker.markerID;
 }
-
+//Needs Attention
 void ControlInterface::sendOSC(std::string address, float value)
 {
     address = "127.0.0.1";
@@ -605,7 +606,7 @@ int main()
     //ButtonFactory
     ButtonFactory newBtnFactory;
     ButtonFactory::Button newButton;
-    newBtnFactory.makeButton( 2335 );
+    newBtnFactory.makeButton( "BK-105_VL", 100 );
     newBtnFactory.designButton();
     newBtnFactory.shipButtons( "1458 State St, Anytown US, 10106", 2335, 200 );
 
@@ -634,12 +635,12 @@ int main()
     Racecar newRacecar;
     newRacecar.engineStart();
     newRacecar.accelerate( 80 );
-    newRacecar.currGear();
+    newRacecar.currentGear( 3 );
 
     //Camera
     Camera newCamera;
-    newCamera.capture( true );
-    newCamera.captureTrackData( "Marker01", 480, 640 );
+    newCamera.toggleCaptureImage( true );
+    newCamera.setDimensions( 640, 480 );
     newCamera.adjustExposure( 0.5f );
 
     //Board
@@ -650,10 +651,10 @@ int main()
 
     //FiducialMarker
     FiducialMarker newMarker;
-    newMarker.sendMarkerPos( 430, 783 );
-    newMarker.sendMarkerID( "marker01" );
-    newMarker.sendMarkerRot( 93 );
-    newMarker.sendMarkerData( "marker01", 430, 783, 37, 93 );
+    newMarker.setMarkerPos( 430, 783 );
+    newMarker.setMarkerID( "marker01" );
+    newMarker.setMarkerRot( 93 );
+    newMarker.setMarkerData( "marker01", 430, 783, 37, 93 );
 
     //AudioEngine
     AudioEngine newAudioEngine;
