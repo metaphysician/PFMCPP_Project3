@@ -505,7 +505,7 @@ void AudioEngine::playAudio()
 {
 
 }
-//Needs Fixing
+
 void AudioEngine::applyEffect( int effect, int instNumber )
 {
     activeEffects = effect;
@@ -514,7 +514,7 @@ void AudioEngine::applyEffect( int effect, int instNumber )
 
 void AudioEngine::recordSound(bool state)
 {
-    state = true;
+    std::cout << "record is:" << state;
 }
 
 struct MIDIinterface
@@ -539,12 +539,12 @@ void MIDIinterface::routeMidi( int channel, int note, int vel )
 
 void MIDIinterface::recordMidiIn(bool state)
 {
-    state = true;
+    std::cout << "record MIDI is:" << state;
 }
 
 void MIDIinterface::playMidiData(bool state)
 {
-    state = false;
+    std::cout << "play is:" << state;
 }
 
 struct ControlInterface
@@ -556,10 +556,10 @@ struct ControlInterface
     MIDIinterface midi;
 
     void getObjData(std::string objName);
-    void checkMarker(std::string idString);
+    void setMarkerID(std::string idString);
     void sendOSC( std::string address, float value );
 };
-//Maybe okay?
+
 void ControlInterface::getObjData(std::string objName)
 {
     int X = 0;
@@ -574,16 +574,16 @@ void ControlInterface::getObjData(std::string objName)
         //send the data onwards
         //sendObjPos(objName,X,Y,elev);
 }
-//Need attention
-void ControlInterface::checkMarker(std::string idString)
+
+void ControlInterface::setMarkerID(std::string idString)
 {
-    idString = marker.markerID;
+    marker.markerID = idString;
 }
-//Needs Attention
-void ControlInterface::sendOSC(std::string address, float value)
+
+
+void ControlInterface::sendOSC(std::string, float)
 {
-    address = "127.0.0.1";
-    value = 0.6f;
+
 }
 
 /*
@@ -671,7 +671,7 @@ int main()
     //ControlInterface
     ControlInterface newCtrlInterface;
     newCtrlInterface.getObjData( "Keyboard1" );
-    newCtrlInterface.checkMarker( "marker04" );
+    newCtrlInterface.setMarkerID( "marker04" );
     newCtrlInterface.sendOSC( "127.34.56.70", 0.85f );
 
     std::cout << "good to go!" << std::endl;
