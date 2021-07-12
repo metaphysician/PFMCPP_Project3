@@ -604,75 +604,75 @@ void ControlInterface::sendOSC(std::string, float)
 int main()
 {
     //ButtonFactory
-    ButtonFactory newBtnFactory;
-    ButtonFactory::Button newButton;
-    newBtnFactory.makeButton( "BK-105_VL", 100 );
-    newBtnFactory.designButton();
-    newBtnFactory.shipButtons( "1458 State St, Anytown US, 10106", 2335, 200 );
+    // ButtonFactory newBtnFactory;
+    // ButtonFactory::Button newButton;
+    // newBtnFactory.makeButton( "BK-105_VL", 100 );
+    // newBtnFactory.designButton();
+    // newBtnFactory.shipButtons( "1458 State St, Anytown US, 10106", 2335, 200 );
 
-    newButton.orderButton( "101_DRBQ-BK", 150 );
-    newButton.getRadius( "101_DRBQ-BK" );
-    newButton.getButtonColor( "101_DRBQ-BK" );
+    // newButton.orderButton( "101_DRBQ-BK", 150 );
+    // newButton.getRadius( "101_DRBQ-BK" );
+    // newButton.getButtonColor( "101_DRBQ-BK" );
     
-    //AlienDetectionAgency
-    AlienDetectionAgency newAgency;
-    AlienDetectionAgency::FieldReport newReport;
-    newAgency.reportHandler(newReport);
-    newAgency.getTotalAgents();
-    newAgency.warnScully();
+    // //AlienDetectionAgency
+    // AlienDetectionAgency newAgency;
+    // AlienDetectionAgency::FieldReport newReport;
+    // newAgency.reportHandler(newReport);
+    // newAgency.getTotalAgents();
+    // newAgency.warnScully();
 
-    newReport.enterData( "Agent Name:", "John Smith" );
-    newReport.changeWitnessCount( 2 );
-    newReport.changeAgent( "Jack", "Ryan" );
+    // newReport.enterData( "Agent Name:", "John Smith" );
+    // newReport.changeWitnessCount( 2 );
+    // newReport.changeAgent( "Jack", "Ryan" );
 
-    //Instrument
-    Instrument newInst;
-    newInst.playNote( 440.3, 0.75f, 0.90f );
-    newInst.sendPitchValue( 1439.45 );
-    newInst.changeTimbre( 0.4f );
+    // //Instrument
+    // Instrument newInst;
+    // newInst.playNote( 440.3, 0.75f, 0.90f );
+    // newInst.sendPitchValue( 1439.45 );
+    // newInst.changeTimbre( 0.4f );
 
-    //Racecar
-    Racecar newRacecar;
-    newRacecar.engineStart();
-    newRacecar.accelerate( 80 );
-    newRacecar.currentGear( 3 );
+    // //Racecar
+    // Racecar newRacecar;
+    // newRacecar.engineStart();
+    // newRacecar.accelerate( 80 );
+    // newRacecar.currentGear( 3 );
 
-    //Camera
-    Camera newCamera;
-    newCamera.toggleCaptureImage( true );
-    newCamera.setDimensions( 640, 480 );
-    newCamera.adjustExposure( 0.5f );
+    // //Camera
+    // Camera newCamera;
+    // newCamera.toggleCaptureImage( true );
+    // newCamera.setDimensions( 640, 480 );
+    // newCamera.adjustExposure( 0.5f );
 
-    //Board
-    Board newBoard;
-    newBoard.detectObjectType( "marker", 30 );
-    newBoard.newPosition( 400, 800, 23 );
-    newBoard.initBoard();
+    // //Board
+    // Board newBoard;
+    // newBoard.detectObjectType( "marker", 30 );
+    // newBoard.newPosition( 400, 800, 23 );
+    // newBoard.initBoard();
 
-    //FiducialMarker
-    FiducialMarker newMarker;
-    newMarker.setMarkerPos( 430, 783 );
-    newMarker.setMarkerID( "marker01" );
-    newMarker.setMarkerRot( 93 );
-    newMarker.setMarkerData( "marker01", 430, 783, 37, 93 );
+    // //FiducialMarker
+    // FiducialMarker newMarker;
+    // newMarker.setMarkerPos( 430, 783 );
+    // newMarker.setMarkerID( "marker01" );
+    // newMarker.setMarkerRot( 93 );
+    // newMarker.setMarkerData( "marker01", 430, 783, 37, 93 );
 
-    //AudioEngine
-    AudioEngine newAudioEngine;
-    newAudioEngine.playAudio();
-    newAudioEngine.applyEffect( 3, 6 );
-    newAudioEngine.recordSound( false );
+    // //AudioEngine
+    // AudioEngine newAudioEngine;
+    // newAudioEngine.playAudio();
+    // newAudioEngine.applyEffect( 3, 6 );
+    // newAudioEngine.recordSound( false );
 
-    //MIDIinterface
-    MIDIinterface newMIDIinterface;
-    newMIDIinterface.routeMidi( 0, 60, 90 );
-    newMIDIinterface.recordMidiIn( true );
-    newMIDIinterface.playMidiData( false );
+    // //MIDIinterface
+    // MIDIinterface newMIDIinterface;
+    // newMIDIinterface.routeMidi( 0, 60, 90 );
+    // newMIDIinterface.recordMidiIn( true );
+    // newMIDIinterface.playMidiData( false );
 
-    //ControlInterface
-    ControlInterface newCtrlInterface;
-    newCtrlInterface.getObjData( "Keyboard1" );
-    newCtrlInterface.setMarkerID( "marker04" );
-    newCtrlInterface.sendOSC( "127.34.56.70", 0.85f );
+    // //ControlInterface
+    // ControlInterface newCtrlInterface;
+    // newCtrlInterface.getObjData( "Keyboard1" );
+    // newCtrlInterface.setMarkerID( "marker04" );
+    // newCtrlInterface.sendOSC( "127.34.56.70", 0.85f );
 
     std::cout << "good to go!" << std::endl;
 }
