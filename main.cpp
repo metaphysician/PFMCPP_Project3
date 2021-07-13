@@ -201,7 +201,7 @@ void ButtonFactory::makeButton(std::string sku, int amount)
 {
     Button button;
     button.skuInfo = sku;
-    amount += button.stockQuantity;
+    button.stockQuantity += amount;
 }
 
 void ButtonFactory::designButton()
