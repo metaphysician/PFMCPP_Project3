@@ -211,7 +211,7 @@ void ButtonFactory::designButton()
 
 void ButtonFactory::shipButtons(std::string address, int buttonType, int numToShip)
 {
-    std::cout << "Ship To:" << address << " Type:" << buttonType << " Quantity:" << numToShip;
+    std::cout << std::endl << "Ship To: " << address << std::endl << "Type: " << buttonType << std::endl << "Quantity: " << numToShip << std::endl;
 }
 
 void ButtonFactory::Button::orderButton(std::string sku, int amount)
@@ -342,12 +342,13 @@ struct Racecar
     double carHeight = 1.15;
     double carWeight = 800;
     int engCylCount = 6;
+    int currentGear = 0;
     unsigned int carTopSpeedMPH = 210;
     double carTopSpeedKPH = carTopSpeedMPH * 1.609344;
     unsigned int engMaxRPM = 11300;
     void engineStart();
     void accelerate(unsigned int currSpeed);
-    int currentGear(int gearNumber);
+    int getCurrentGear();
 };
 
 void Racecar::engineStart()
@@ -364,9 +365,9 @@ void Racecar::accelerate(unsigned int currSpeed)
     }
 }
 
-int Racecar::currentGear(int currGear)
+int Racecar::getCurrentGear()
 {
-    return currGear;
+    return currentGear;
 }
 
 struct Camera
@@ -388,10 +389,10 @@ void Camera::toggleCaptureImage(bool state)
     state = !state;
 }
 
-void Camera::setDimensions(int X, int Y)
+void Camera::setDimensions(int x, int y)
 {
-    width = X;
-    height = Y;
+    width = x;
+    height = y;
 }
 
 void Camera::adjustExposure(float newValue)
@@ -463,10 +464,10 @@ struct FiducialMarker
     void setMarkerData(std::string ID, int X, int Y, int elev, int rot);
 };
 
-void FiducialMarker::setMarkerPos(int X, int Y)
+void FiducialMarker::setMarkerPos(int x, int y)
 {
-    posX = X;
-    posY = Y;
+    posX = x;
+    posY = y;
 }
 
 void FiducialMarker::setMarkerID(std::string ID)
@@ -603,7 +604,7 @@ void ControlInterface::sendOSC(std::string, float)
 #include <iostream>
 int main()
 {
-    //ButtonFactory
+    // // ButtonFactory
     // ButtonFactory newBtnFactory;
     // ButtonFactory::Button newButton;
     // newBtnFactory.makeButton( "BK-105_VL", 100 );
