@@ -190,16 +190,16 @@ struct ButtonFactory
         int radiusInMm = 20;
         int depthInMm = 5;
 
-        void orderButton( std::string sku, int amount );
+        void orderButton( std::string sku, unsigned int amount );
         int getRadius( std::string sku );
         std::string getButtonColor( std::string sku );
     };
 
-    Button makeButton(std::string sku, int amount);
+    Button makeButton(std::string sku, unsigned int amount);
 };
 
 
-ButtonFactory::Button ButtonFactory::makeButton(std::string sku, int amount)
+ButtonFactory::Button ButtonFactory::makeButton(std::string sku, unsigned int amount)
 {
     Button button;
     button.skuInfo = sku;
@@ -217,7 +217,7 @@ void ButtonFactory::shipButtons(std::string address, int buttonType, int numToSh
     std::cout << std::endl << "Ship To: " << address << std::endl << "Type: " << buttonType << std::endl << "Quantity: " << numToShip << std::endl;
 }
 
-void ButtonFactory::Button::orderButton(std::string sku, int amount)
+void ButtonFactory::Button::orderButton(std::string sku, unsigned int amount)
 {   
     stockQuantity -= amount;
     skuInfo = sku;
