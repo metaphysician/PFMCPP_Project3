@@ -216,7 +216,7 @@ void ButtonFactory::shipButtons(std::string address, int buttonType, int numToSh
 
 void ButtonFactory::Button::orderButton(std::string sku, int amount)
 {   
-    amount -= stockQuantity;
+    stockQuantity -= amount;
     skuInfo = sku;
 }
 
@@ -228,7 +228,7 @@ int ButtonFactory::Button::getRadius(std::string sku)
 
 std::string ButtonFactory::Button::getButtonColor( std::string sku )
 {
-    sku = ButtonFactory::Button::skuInfo;
+    sku = skuInfo;
     return color;
 }
 
@@ -480,11 +480,11 @@ void FiducialMarker::setMarkerRot(int rot)
     rotation = rot;
 }
 
-void FiducialMarker::setMarkerData(std::string ID, int X, int Y, int elev, int rot)
+void FiducialMarker::setMarkerData(std::string ID, int x, int y, int elev, int rot)
 {
     markerID = ID;
-    posX = X;
-    posY = Y;
+    posX = x;
+    posY = y;
     elevation = elev;
     rotation = rot;
 }
