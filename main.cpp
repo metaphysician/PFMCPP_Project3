@@ -177,7 +177,7 @@ struct ButtonFactory
     float avgCostPerButton = 0.03f;
     float profitPerQtr = 9450.00f;
 
-    void makeButton(std::string sku, int amount);
+    
     void designButton();
     void shipButtons(std::string address, int buttonType, int numToShip);
 
@@ -194,14 +194,17 @@ struct ButtonFactory
         int getRadius( std::string sku );
         std::string getButtonColor( std::string sku );
     };
+
+    Button makeButton(std::string sku, int amount);
 };
 
 
-void ButtonFactory::makeButton(std::string sku, int amount)
+ButtonFactory::Button ButtonFactory::makeButton(std::string sku, int amount)
 {
     Button button;
     button.skuInfo = sku;
     button.stockQuantity += amount;
+    return button;
 }
 
 void ButtonFactory::designButton()
